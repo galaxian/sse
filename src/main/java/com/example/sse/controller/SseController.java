@@ -1,5 +1,7 @@
 package com.example.sse.controller;
 
+import java.util.List;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +23,11 @@ public class SseController {
 	public ResponseEntity<SseEmitter> connect() {
 		SseEmitter emitter = service.connect();
 		return ResponseEntity.ok().body(emitter);
+	}
+
+	@GetMapping("/connection")
+	public ResponseEntity<List<SseEmitter>> allConnect() {
+		List<SseEmitter> allEmitter = service.getAllEmitter();
+		return ResponseEntity.ok().body(allEmitter);
 	}
 }

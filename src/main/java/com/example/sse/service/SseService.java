@@ -24,4 +24,8 @@ public class SseService {
 		}
 		return emitter;
 	}
+
+	public List<SseEmitter> getAllEmitter() {
+		return this.emitters;
+	}
 }
