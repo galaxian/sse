@@ -1,5 +1,7 @@
 package com.example.sse.comment.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +10,7 @@ import com.example.sse.board.domain.Board;
 import com.example.sse.comment.repository.CommentRepository;
 import com.example.sse.comment.dto.CreateCommentReqDto;
 import com.example.sse.comment.domain.Comment;
+import com.example.sse.notification.NotificationService;
 import com.example.sse.user.repository.UserRepository;
 import com.example.sse.user.domain.User;
 
@@ -20,6 +23,7 @@ public class CommentService {
 	private final CommentRepository commentRepository;
 	private final BoardRepository boardRepository;
 	private final UserRepository userRepository;
+	private final NotificationService notificationService;
 
 	@Transactional
 	public void createComment(CreateCommentReqDto reqDto, Long userId, Long boardId) {
@@ -33,5 +37,9 @@ public class CommentService {
 
 		Comment comment = new Comment(reqDto.getContent(), board, user);
 		commentRepository.save(comment);
+
+		List<Comment> commentList = commentRepository.findAllByBoardId(boardId);
+
+		notificationService.sendEvent(board.getUser().getId(), commentList.size());
 	}
 }

@@ -34,4 +34,19 @@ public class NotificationService {
 		});
 		return emitter;
 	}
+
+	public void sendEvent(Long userId, int size) {
+		Set<SseEmitter> sseEmitterSet = emitterMap.get(userId);
+		for (SseEmitter emitter : sseEmitterSet) {
+			try {
+				emitter.send(SseEmitter.event()
+					.name("comment")
+					.comment("게시글에 댓글이 달렸습니다.")
+					.data(size));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }
