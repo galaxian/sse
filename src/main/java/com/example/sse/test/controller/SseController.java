@@ -1,4 +1,4 @@
-package com.example.sse.controller;
+package com.example.sse.test.controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.example.sse.service.SseService;
+import com.example.sse.test.service.SseService;
 
 @RestController
 public class SseController {

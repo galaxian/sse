@@ -1,4 +1,4 @@
-package com.example.sse.service;
+package com.example.sse.test.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
