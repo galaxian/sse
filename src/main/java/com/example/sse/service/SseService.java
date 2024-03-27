@@ -15,6 +15,10 @@ public class SseService {
 	public SseEmitter connect() {
 		SseEmitter emitter = new SseEmitter(300000L);
 		this.emitters.add(emitter);
+		emitter.onCompletion(() -> {
+			this.emitters.remove(emitter);
+		});
+		emitter.onTimeout(emitter::complete);
 		try {
 			emitter.send(SseEmitter.event()
 				.name("connect")
