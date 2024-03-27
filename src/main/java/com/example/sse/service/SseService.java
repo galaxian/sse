@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 public class SseService {
 
 	private List<SseEmitter> emitters = new ArrayList<>();
+	private static int count = 0;
 
 	public SseEmitter connect() {
 		SseEmitter emitter = new SseEmitter(300000L);
@@ -31,5 +32,18 @@ public class SseService {
 
 	public List<SseEmitter> getAllEmitter() {
 		return this.emitters;
+	}
+
+	public void count() {
+		long countNum = count++;
+		emitters.forEach(emitter -> {
+			try {
+				emitter.send(SseEmitter.event()
+					.name("count")
+					.data(countNum));
+			} catch (Exception e) {
+				throw new RuntimeException();
+			}
+		});
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -29,5 +30,11 @@ public class SseController {
 	public ResponseEntity<List<SseEmitter>> allConnect() {
 		List<SseEmitter> allEmitter = service.getAllEmitter();
 		return ResponseEntity.ok().body(allEmitter);
+	}
+
+	@PostMapping("/count")
+	public ResponseEntity<Void> count() {
+		service.count();
+		return ResponseEntity.ok().build();
 	}
 }
